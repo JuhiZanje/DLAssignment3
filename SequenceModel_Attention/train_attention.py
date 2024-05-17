@@ -605,7 +605,7 @@ class Seq2SeqAttn(pl.LightningModule):
         # print({"for batch test_loss":test_loss,"testAccuracy":testAccuracy})
         # wandb.log({"Test Loss":test_loss,"Test Accuracy":testAccuracy})
         # Save target and predicted outputs to a CSV file
-        save_outputs_to_csvAttn(inputs,target_outputs, predicted_outputs)
+        #save_outputs_to_csvAttn(inputs,target_outputs, predicted_outputs)
         # plot_attention_weights(self.attentionWeights)
         # if(self.counter<1):
         #   s(inputs,predicted_outputs,attentionV)
