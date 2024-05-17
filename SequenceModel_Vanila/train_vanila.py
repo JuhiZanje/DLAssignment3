@@ -533,7 +533,7 @@ class Seq2Seq(pl.LightningModule):
 
         self.test_loss.append(torch.tensor(test_loss))
         self.testAccuracy.append(torch.tensor(testAccuracy))
-        save_outputs_to_csv(inputs,target_outputs, predicted_outputs)#save the input word ,ouput word and predicted word to csv file
+        # save_outputs_to_csv(inputs,target_outputs, predicted_outputs)#save the input word ,ouput word and predicted word to csv file
 
         # print({"Test Accuracy":testAccuracy,"Test loss":test_loss})
         # wandb.log({"Test Accuracy":testAccuracy,"Test loss":test_loss})
