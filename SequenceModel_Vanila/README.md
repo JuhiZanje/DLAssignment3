@@ -29,6 +29,7 @@
 -   eg : !python /kaggle/input/train-attn/train_vanila.py
 -  You can give given below args while running file
 -   eg : !python /kaggle/input/train-attn/train_vanila.py -e 1 -ct "RNN"
+-   When running on kaggle progress bar for validation may seem diff but that is a glitch of pytochLightening.
 
 ### If you want to Run train_vanila.py on CMD*
 -   When needed Will have to install some packages.
