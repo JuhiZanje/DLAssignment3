@@ -535,8 +535,8 @@ class Seq2Seq(pl.LightningModule):
         self.testAccuracy.append(torch.tensor(testAccuracy))
         save_outputs_to_csv(inputs,target_outputs, predicted_outputs)#save the input word ,ouput word and predicted word to csv file
 
-        print({"Test Accuracy":testAccuracy,"Test loss":test_loss})
-        wandb.log({"Test Accuracy":testAccuracy,"Test loss":test_loss})
+        # print({"Test Accuracy":testAccuracy,"Test loss":test_loss})
+        # wandb.log({"Test Accuracy":testAccuracy,"Test loss":test_loss})
 
         return {'loss':test_loss}
 
@@ -614,7 +614,7 @@ class Seq2Seq(pl.LightningModule):
 
 #function will save ouput to the csv file(actual,predicted)
 def save_outputs_to_csv(inputs,target_outputs, predicted_outputs):
-    file_exists = os.path.exists('Output_no_Attn.csv')
+    file_exists = os.path.exists('Output.csv')
     dict = {'input':inputs,'target':target_outputs, 'predicted': predicted_outputs}
     df = pd.DataFrame(dict)
     df.to_csv('Output.csv',mode='a',index=False,header=not file_exists)
@@ -649,11 +649,7 @@ drop_out=ter_args.drop_out
 #################################----------------create model and Train+Test it-------------########################################################
 
 #create model
-if(attention==False):
-  model = Seq2Seq(len(char_to_idx_latin)+2, len(charToIndLang)+2, hidden_layer_size, embeddingSize, cellType,drop_out,layersEncoder,layersDecoder,bidirectional,learningRate)
-
-else:
-  model = Seq2SeqAttn(len(char_to_idx_latin)+2, len(charToIndLang)+2, hidden_layer_size, embeddingSize, cellType,drop_out,1,1,bidirectional,learningRate, maxLenEng)
+model = Seq2Seq(len(char_to_idx_latin)+2, len(charToIndLang)+2, hidden_layer_size, embeddingSize, cellType,drop_out,layersEncoder,layersDecoder,bidirectional,learningRate)
 
 model.to(device)
 

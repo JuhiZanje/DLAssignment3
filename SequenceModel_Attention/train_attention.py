@@ -603,13 +603,13 @@ class Seq2SeqAttn(pl.LightningModule):
         self.testAccuracy.append(torch.tensor(testAccuracy))
         self.test_loss.append(torch.tensor(test_loss))
         # print({"for batch test_loss":test_loss,"testAccuracy":testAccuracy})
-        wandb.log({"Test Loss":test_loss,"Test Accuracy":testAccuracy})
+        # wandb.log({"Test Loss":test_loss,"Test Accuracy":testAccuracy})
         # Save target and predicted outputs to a CSV file
         save_outputs_to_csvAttn(inputs,target_outputs, predicted_outputs)
         # plot_attention_weights(self.attentionWeights)
-        if(self.counter<1):
-          s(inputs,predicted_outputs,attentionV)
-          self.counter=self.counter+1
+        # if(self.counter<1):
+        #   s(inputs,predicted_outputs,attentionV)
+        #   self.counter=self.counter+1
         return {'loss':test_loss}
 
     def on_test_epoch_end(self):
@@ -639,6 +639,17 @@ def get_keyAttn(val):
 
     return key
 
+def keyForInput(val):
+    for k, v in char_to_idx_latin.items():
+        if val == v:
+            return k
+    return ""
+
+def keyForVal(val):
+    for k, v in charToIndLang.items():
+        if val == v:
+            return k
+    return ""
 
 def get_key_inputAttn(val):
     keys = list(char_to_idx_latin.keys())
@@ -659,7 +670,7 @@ def save_outputs_to_csvAttn(inputs,target_outputs, predicted_outputs):
     file_exists = os.path.exists('Output_Attn.csv')
     dict = {'input':inputs,'target':target_outputs, 'predicted': predicted_outputs}
     df = pd.DataFrame(dict)
-    df.to_csv('Output.csv',mode='a',index=False,header=not file_exists)
+    df.to_csv('Output_Attn.csv',mode='a',index=False,header=not file_exists)
 
 #function to create 3*3 grid of heatMap
 def s(input_words, output_words, attentionWeights):
@@ -696,7 +707,7 @@ def s(input_words, output_words, attentionWeights):
     for j in range(len(input_words), len(axes.flat)):
         fig.delaxes(axes.flat[j])
 
-    wandb.log({"Question 5": wandb.Image(plt)})
+    wandb.log({"Question5_HeatMap": wandb.Image(plt)})
 
     plt.show()
 
@@ -718,11 +729,8 @@ drop_out=ter_args.drop_out
 #################################----------------create model and Train+Test it-------------########################################################
 
 #create model
-if(attention==False):
-  model = Seq2Seq(len(char_to_idx_latin)+2, len(charToIndLang)+2, hidden_layer_size, embeddingSize, cellType,drop_out,layersEncoder,layersDecoder,bidirectional,learningRate)
 
-else:
-  model = Seq2SeqAttn(len(char_to_idx_latin)+2, len(charToIndLang)+2, hidden_layer_size, embeddingSize, cellType,drop_out,1,1,bidirectional,learningRate, maxLenEng)
+model = Seq2SeqAttn(len(char_to_idx_latin)+2, len(charToIndLang)+2, hidden_layer_size, embeddingSize, cellType,drop_out,1,1,bidirectional,learningRate, maxLenEng)
 
 model.to(device)
 
