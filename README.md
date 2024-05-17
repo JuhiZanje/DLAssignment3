@@ -22,5 +22,5 @@ The provided code snippet demonstrates how to implement a sequence-to-sequence (
 - This folder has its own readme file.
 
 ### I have kept other files here As I first pushed them here . So those file contains my early commits.
-like --> 
+(This file is not for evaluation purpose)
 -   DL_ASSIGNMENT3.ipynb -> contains code for everything
