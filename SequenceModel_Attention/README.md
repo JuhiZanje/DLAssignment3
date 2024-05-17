@@ -2,7 +2,7 @@
 
 
 ## DL_Assignment3_Attn.ipynb
-- This file contains The code for all the question 5 given in assignment.
+- This file contains The code for the question 5 given in assignment.
 -   **Before running ensure to change datapaths in variable:(give path to train.csv,val.csv,test.csv)**
     - trainFilepath --> path to hin_train.csv
     - valFilePath   --> path to hin_valid.csv
